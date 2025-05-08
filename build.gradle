@@ -1,7 +1,10 @@
+import java.time.LocalDateTime
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.5'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'jacoco'
 }
 
 group = 'com.zara'
@@ -10,6 +13,18 @@ version = '0.0.1-SNAPSHOT'
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+jacoco {
+	toolVersion = "0.8.10" // Usa la última versión disponible
+}
+
+jacocoTestReport {
+	dependsOn test // Asegúrate de que las pruebas se ejecuten antes del reporte
+	reports {
+		xml.required = true
+		html.required = true
 	}
 }
 

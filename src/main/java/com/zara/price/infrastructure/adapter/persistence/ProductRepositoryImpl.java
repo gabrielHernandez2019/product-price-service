@@ -4,6 +4,7 @@ import com.zara.price.domain.model.Product;
 import com.zara.price.domain.port.out.ProductRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<Product> findByCriteria(String applicationDate, Integer productId, Integer brandId) {
-        return jpaRepository.findByCriteria(applicationDate, productId, brandId).stream()
+        return jpaRepository.findByCriteria(LocalDateTime.parse(applicationDate), productId, brandId).stream()
                 .map(this::toDomain)
                 .collect(Collectors.toList());
     }
