@@ -26,23 +26,25 @@ public class ProductRepositoryImpl implements ProductRepository {
      */
 
     @Override
-    public List<Product> findByCriteria( String applicationDate, Integer productId, Integer brandId) {
-        return jpaRepository.findByCriteria(
-                applicationDate,
-                productId,
-                brandId
-                ).stream()
+    public List<Product> findByCriteria(String applicationDate, Integer productId, Integer brandId) {
+        return jpaRepository.findByCriteria(applicationDate, productId, brandId).stream()
                 .map(this::toDomain)
                 .collect(Collectors.toList());
     }
 
-  private Product toDomain(ProductEntity entity) {
-      Product product = new Product();
-      product.setId(entity.getProductId());
-      product.setBrandId(entity.getBrandId());
-      product.setStartDate(entity.getStartDate());
-      product.setEndDate(entity.getEndDate());
-      product.setPrice(entity.getPrice());
-      return product;
-  }
+    /**
+     * Converts a ProductEntity to a Product domain model.
+     *
+     * @param entity the ProductEntity to convert
+     * @return the converted Product domain model
+     */
+    private Product toDomain(ProductEntity entity) {
+        Product product = new Product();
+        product.setId(entity.getProductId());
+        product.setBrandId(entity.getBrandId());
+        product.setStartDate(entity.getStartDate());
+        product.setEndDate(entity.getEndDate());
+        product.setPrice(entity.getPrice());
+        return product;
+    }
 }
