@@ -34,3 +34,10 @@ replay_pid*
 # Gradle
 .gradle/
 build/
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
