@@ -15,26 +15,34 @@ public class ProductRepositoryImpl implements ProductRepository {
     public ProductRepositoryImpl(ProductJpaRepository jpaRepository) {
         this.jpaRepository = jpaRepository;
     }
-    @Override
-    public Product save(Product product) {
-        ProductEntity entity = new ProductEntity();
-        entity.setName(product.getName());
-        entity.setPrice(product.getPrice());
-        return toDomain(jpaRepository.save(entity));
-    }
+
+    /**
+     * Retrieves a list of products based on the provided application date, product ID, and brand ID.
+     *
+     * @param applicationDate the application date in 'yyyy-MM-dd' format
+     * @param productId       the product ID
+     * @param brandId         the brand ID
+     * @return a list of products matching the criteria
+     */
 
     @Override
-    public List<Product> findAll() {
-        return jpaRepository.findAll().stream()
+    public List<Product> findByCriteria( String applicationDate, Integer productId, Integer brandId) {
+        return jpaRepository.findByCriteria(
+                applicationDate,
+                productId,
+                brandId
+                ).stream()
                 .map(this::toDomain)
                 .collect(Collectors.toList());
     }
 
-    private Product toDomain(ProductEntity entity) {
-        Product product = new Product();
-        product.setId(entity.getId());
-        product.setName(entity.getName());
-        product.setPrice(entity.getPrice());
-        return product;
-    }
+  private Product toDomain(ProductEntity entity) {
+      Product product = new Product();
+      product.setId(entity.getProductId());
+      product.setBrandId(entity.getBrandId());
+      product.setStartDate(entity.getStartDate());
+      product.setEndDate(entity.getEndDate());
+      product.setPrice(entity.getPrice());
+      return product;
+  }
 }

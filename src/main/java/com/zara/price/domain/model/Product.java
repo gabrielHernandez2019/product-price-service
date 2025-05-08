@@ -5,14 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Product {
-    private Long id;
-    private String name;
-    private double price;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-    // Constructor, getters y setters
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Product {
+    private Integer id;
+    private Integer brandId;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private BigDecimal price;
 }

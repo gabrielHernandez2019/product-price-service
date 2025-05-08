@@ -12,11 +12,18 @@ public class ProductService {
         this.repository = repository;
     }
 
-    public Product create(Product product) {
-        return repository.save(product);
+    /**
+     * Retrieves a list of products based on the provided application date, product ID, and brand ID.
+     *
+     * @param applicationDate the application date in 'yyyy-MM-dd' format
+     * @param productId       the product ID
+     * @param brandId         the brand ID
+     * @return a list of products matching the criteria
+     */
+
+
+    public List<Product> findProductsByCriteria(String applicationDate, Integer productId, Integer brandId) {
+        return repository.findByCriteria(applicationDate, productId, brandId);
     }
 
-    public List<Product> getAll() {
-        return repository.findAll();
-    }
 }

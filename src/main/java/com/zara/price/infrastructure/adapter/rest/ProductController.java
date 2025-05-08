@@ -16,13 +16,19 @@ public class ProductController {
         this.service = service;
     }
 
-    @PostMapping
-    public Product create(@RequestBody Product product) {
-        return service.create(product);
-    }
-
+    /**
+     * Endpoint to get all products based on application date, product ID, and brand ID.
+     *
+     * @param applicationDate the application date in 'yyyy-MM-dd' format
+     * @param productId       the product ID
+     * @param brandId         the brand ID
+     * @return a list of products matching the criteria
+     */
     @GetMapping
-    public List<Product> getAll() {
-        return service.getAll();
+    public List<Product> getAll(
+            @RequestParam("applicationDate") String applicationDate,
+            @RequestParam("productId") Integer productId,
+            @RequestParam("brandId") Integer brandId) {
+        return service.findProductsByCriteria(applicationDate, productId, brandId);
     }
 }
