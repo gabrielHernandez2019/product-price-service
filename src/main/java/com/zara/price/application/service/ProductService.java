@@ -2,9 +2,11 @@ package com.zara.price.application.service;
 
 import com.zara.price.domain.model.Product;
 import com.zara.price.domain.port.out.ProductRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProductService {
     private final ProductRepository repository;
 

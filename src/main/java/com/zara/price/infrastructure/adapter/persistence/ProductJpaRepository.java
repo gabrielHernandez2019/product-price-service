@@ -1,9 +1,18 @@
 package com.zara.price.infrastructure.adapter.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface ProductJpaRepository extends JpaRepository<ProductEntity, Long> {
-    List<ProductEntity> findByCriteria(String applicationDate, Integer productId, Integer brandId);
+
+    @Query("SELECT p FROM ProductEntity p WHERE " +
+            "(:applicationDate BETWEEN p.startDate AND p.endDate) AND " +
+            "(:productId IS NULL OR p.id = :productId) AND " +
+            "(:brandId IS NULL OR p.brandId = :brandId)")
+    List<ProductEntity> findByCriteria(@Param("applicationDate") String applicationDate,
+                                       @Param("productId") Integer productId,
+                                       @Param("brandId") Integer brandId);
 }
