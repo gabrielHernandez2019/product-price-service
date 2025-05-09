@@ -12,11 +12,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(TechnicalException.class)
     public ResponseEntity<String> handleTechnicalException(TechnicalException ex) {
-        return ResponseEntity.badRequest().body(ex.getMessage());
+        return ResponseEntity.internalServerError().body(ex.getMessage());
     }
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<String> handleBusinessException(BusinessException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }

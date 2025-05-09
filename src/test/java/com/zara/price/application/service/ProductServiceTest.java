@@ -1,41 +1,57 @@
 package com.zara.price.application.service;
 
+import com.zara.price.domain.exception.BusinessException;
 import com.zara.price.domain.model.Product;
 import com.zara.price.domain.port.out.ProductRepository;
+import com.zara.price.infrastructure.config.MessageConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 class ProductServiceTest {
 
     private ProductRepository productRepository;
     private ProductService productService;
+    private MessageConfig messageConfig;
 
     @BeforeEach
     void setUp() {
         productRepository = mock(ProductRepository.class);
-        productService = new ProductService(productRepository);
+        messageConfig = mock(MessageConfig.class);
+        productService = new ProductService(productRepository, messageConfig);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenApplicationDateIsNull() {
+        // Arrange
+        String errorMessage = "La fecha de aplicación no puede ser nula.";
+        when(messageConfig.getErrorMessage("null-application-date")).thenReturn(errorMessage);
+
+        // Act & Assert
+        BusinessException exception = assertThrows(BusinessException.class,
+                () -> productService.findProductsByCriteria(null, 1, 1));
+        assertEquals(errorMessage, exception.getMessage());
+        verify(messageConfig).getErrorMessage("null-application-date");
+        verifyNoInteractions(productRepository);
     }
 
     @Test
     void testRequestAt10AMOn14th() {
+
         LocalDateTime applicationDate = LocalDateTime.parse("2023-06-14T10:00:00");
         Integer productId = 35455;
         Integer brandId = 1;
 
-        Product expectedProduct = new Product(1, 1,
-                LocalDateTime.parse("2023-06-14T00:00:00"),
-                LocalDateTime.parse("2023-06-14T23:59:59"),
-                BigDecimal.valueOf(35.50));
-        when(productRepository.findByCriteria(applicationDate, productId, brandId))
-                .thenReturn(List.of(expectedProduct));
+        Product expectedProduct = new Product(1, 1, LocalDateTime.parse("2023-06-14T00:00:00"), LocalDateTime.parse("2023-06-14T23:59:59"), BigDecimal.valueOf(35.50));
+        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(List.of(expectedProduct));
 
         List<Product> result = productService.findProductsByCriteria(applicationDate, productId, brandId);
 
@@ -49,12 +65,8 @@ class ProductServiceTest {
         Integer productId = 35455;
         Integer brandId = 1;
 
-        Product expectedProduct = new Product(2, 1,
-                LocalDateTime.parse("2023-06-14T15:00:00"),
-                        LocalDateTime.parse("2023-06-14T18:00:00"),
-                BigDecimal.valueOf(20.50));
-        when(productRepository.findByCriteria(applicationDate, productId, brandId))
-                .thenReturn(List.of(expectedProduct));
+        Product expectedProduct = new Product(2, 1, LocalDateTime.parse("2023-06-14T15:00:00"), LocalDateTime.parse("2023-06-14T18:00:00"), BigDecimal.valueOf(20.50));
+        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(List.of(expectedProduct));
 
         List<Product> result = productService.findProductsByCriteria(applicationDate, productId, brandId);
 
@@ -64,16 +76,12 @@ class ProductServiceTest {
 
     @Test
     void testRequestAt9PMOn14th() {
-        LocalDateTime applicationDate = LocalDateTime.parse( "2023-06-14T21:00:00");
+        LocalDateTime applicationDate = LocalDateTime.parse("2023-06-14T21:00:00");
         Integer productId = 35455;
         Integer brandId = 1;
 
-        Product expectedProduct = new Product(3, 1,
-                LocalDateTime.parse("2023-06-14T20:00:00"),
-                LocalDateTime.parse("2023-06-14T23:59:59"),
-                BigDecimal.valueOf(30.50));
-        when(productRepository.findByCriteria(applicationDate, productId, brandId))
-                .thenReturn(List.of(expectedProduct));
+        Product expectedProduct = new Product(3, 1, LocalDateTime.parse("2023-06-14T20:00:00"), LocalDateTime.parse("2023-06-14T23:59:59"), BigDecimal.valueOf(30.50));
+        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(List.of(expectedProduct));
 
         List<Product> result = productService.findProductsByCriteria(applicationDate, productId, brandId);
 
@@ -87,12 +95,8 @@ class ProductServiceTest {
         Integer productId = 35455;
         Integer brandId = 1;
 
-        Product expectedProduct = new Product(4, 1,
-                LocalDateTime.parse("2023-06-15T00:00:00"),
-                        LocalDateTime.parse("2023-06-15T23:59:59"),
-                BigDecimal.valueOf(30.50));
-        when(productRepository.findByCriteria(applicationDate, productId, brandId))
-                .thenReturn(List.of(expectedProduct));
+        Product expectedProduct = new Product(4, 1, LocalDateTime.parse("2023-06-15T00:00:00"), LocalDateTime.parse("2023-06-15T23:59:59"), BigDecimal.valueOf(30.50));
+        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(List.of(expectedProduct));
 
         List<Product> result = productService.findProductsByCriteria(applicationDate, productId, brandId);
 
@@ -106,12 +110,8 @@ class ProductServiceTest {
         Integer productId = 35455;
         Integer brandId = 1;
 
-        Product expectedProduct = new Product(5, 1,
-                LocalDateTime.parse("2023-06-16T20:00:00"),
-                        LocalDateTime.parse("2023-06-16T23:59:59"),
-                                BigDecimal.valueOf(30.50));
-        when(productRepository.findByCriteria(applicationDate, productId, brandId))
-                .thenReturn(List.of(expectedProduct));
+        Product expectedProduct = new Product(5, 1, LocalDateTime.parse("2023-06-16T20:00:00"), LocalDateTime.parse("2023-06-16T23:59:59"), BigDecimal.valueOf(30.50));
+        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(List.of(expectedProduct));
 
         List<Product> result = productService.findProductsByCriteria(applicationDate, productId, brandId);
 
