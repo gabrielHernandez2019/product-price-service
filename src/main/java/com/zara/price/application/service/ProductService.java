@@ -1,10 +1,13 @@
 package com.zara.price.application.service;
 
+import com.zara.price.domain.exception.BusinessException;
 import com.zara.price.domain.model.Product;
 import com.zara.price.domain.port.out.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProductService {
@@ -14,17 +17,13 @@ public class ProductService {
         this.repository = repository;
     }
 
-    /**
-     * Retrieves a list of products based on the provided application date, product ID, and brand ID.
-     *
-     * @param applicationDate the application date in 'yyyy-MM-dd' format
-     * @param productId       the product ID
-     * @param brandId         the brand ID
-     * @return a list of products matching the criteria
-     */
 
+    public List<Product> findProductsByCriteria(LocalDateTime applicationDate, Integer productId, Integer brandId) {
 
-    public List<Product> findProductsByCriteria(String applicationDate, Integer productId, Integer brandId) {
+        if (Objects.isNull(applicationDate)) {
+            throw new BusinessException("La fecha de aplicación no puede ser nula.");
+        }
+
         return repository.findByCriteria(applicationDate, productId, brandId);
     }
 

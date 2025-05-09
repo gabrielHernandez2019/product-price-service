@@ -4,6 +4,7 @@ import com.zara.price.application.service.ProductService;
 import com.zara.price.domain.model.Product;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -26,8 +27,8 @@ public class ProductController {
      * @return a list of products matching the criteria
      */
     @GetMapping
-    public List<Product> getAll(
-            @RequestParam("applicationDate") String applicationDate,
+    public List<Product> getPriceForProduct(
+            @RequestParam("applicationDate") LocalDateTime applicationDate,
             @RequestParam("productId") Integer productId,
             @RequestParam("brandId") Integer brandId) {
         return service.findProductsByCriteria(applicationDate, productId, brandId);

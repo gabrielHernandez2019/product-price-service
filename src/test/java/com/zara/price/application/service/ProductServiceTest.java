@@ -26,7 +26,7 @@ class ProductServiceTest {
 
     @Test
     void testRequestAt10AMOn14th() {
-        String applicationDate = "2023-06-14T10:00:00";
+        LocalDateTime applicationDate = LocalDateTime.parse("2023-06-14T10:00:00");
         Integer productId = 35455;
         Integer brandId = 1;
 
@@ -45,7 +45,7 @@ class ProductServiceTest {
 
     @Test
     void testRequestAt4PMOn14th() {
-        String applicationDate = "2023-06-14T16:00:00";
+        LocalDateTime applicationDate = LocalDateTime.parse("2023-06-14T16:00:00");
         Integer productId = 35455;
         Integer brandId = 1;
 
@@ -64,7 +64,7 @@ class ProductServiceTest {
 
     @Test
     void testRequestAt9PMOn14th() {
-        String applicationDate = "2023-06-14T21:00:00";
+        LocalDateTime applicationDate = LocalDateTime.parse( "2023-06-14T21:00:00");
         Integer productId = 35455;
         Integer brandId = 1;
 
@@ -83,7 +83,7 @@ class ProductServiceTest {
 
     @Test
     void testRequestAt10AMOn15th() {
-        String applicationDate = "2023-06-15T10:00:00";
+        LocalDateTime applicationDate = LocalDateTime.parse("2023-06-15T10:00:00");
         Integer productId = 35455;
         Integer brandId = 1;
 
@@ -102,7 +102,7 @@ class ProductServiceTest {
 
     @Test
     void testRequestAt9PMOn16th() {
-        String applicationDate = "2023-06-16T21:00:00";
+        LocalDateTime applicationDate = LocalDateTime.parse("2023-06-16T21:00:00");
         Integer productId = 35455;
         Integer brandId = 1;
 

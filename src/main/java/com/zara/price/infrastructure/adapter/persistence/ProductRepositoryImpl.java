@@ -2,6 +2,7 @@ package com.zara.price.infrastructure.adapter.persistence;
 
 import com.zara.price.domain.model.Product;
 import com.zara.price.domain.port.out.ProductRepository;
+import com.zara.price.infrastructure.adapter.persistence.mapper.ProductMapper;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -12,9 +13,11 @@ import java.util.stream.Collectors;
 public class ProductRepositoryImpl implements ProductRepository {
 
     private final ProductJpaRepository jpaRepository;
+    private final ProductMapper productMapper;
 
-    public ProductRepositoryImpl(ProductJpaRepository jpaRepository) {
+    public ProductRepositoryImpl(ProductJpaRepository jpaRepository, ProductMapper productMapper) {
         this.jpaRepository = jpaRepository;
+        this.productMapper = productMapper;
     }
 
     /**
@@ -27,25 +30,11 @@ public class ProductRepositoryImpl implements ProductRepository {
      */
 
     @Override
-    public List<Product> findByCriteria(String applicationDate, Integer productId, Integer brandId) {
-        return jpaRepository.findByCriteria(LocalDateTime.parse(applicationDate), productId, brandId).stream()
-                .map(this::toDomain)
+    public List<Product> findByCriteria(LocalDateTime applicationDate, Integer productId, Integer brandId) {
+        return jpaRepository.findByCriteria( applicationDate, productId, brandId).stream()
+                .map(productMapper::toDomain)
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Converts a ProductEntity to a Product domain model.
-     *
-     * @param entity the ProductEntity to convert
-     * @return the converted Product domain model
-     */
-    private Product toDomain(ProductEntity entity) {
-        Product product = new Product();
-        product.setId(entity.getProductId());
-        product.setBrandId(entity.getBrandId());
-        product.setStartDate(entity.getStartDate());
-        product.setEndDate(entity.getEndDate());
-        product.setPrice(entity.getPrice());
-        return product;
-    }
+
 }
