@@ -5,6 +5,8 @@ plugins {
 	id 'org.springframework.boot' version '3.4.5'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'jacoco'
+
+
 }
 
 group = 'com.zara'
@@ -51,6 +53,7 @@ dependencies {
 
 	// Dependencias de prueba en tiempo de ejecución
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
 }
 
 jacoco {
@@ -64,6 +67,7 @@ jacocoTestReport {
 		html.required = true
 	}
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()

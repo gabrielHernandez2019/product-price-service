@@ -3,6 +3,7 @@ package com.zara.price.application.service;
 import com.zara.price.domain.exception.BusinessException;
 import com.zara.price.domain.model.Product;
 import com.zara.price.domain.port.out.ProductRepository;
+import com.zara.price.infrastructure.adapter.kafka.KafkaProducerAdapter;
 import com.zara.price.infrastructure.config.MessageConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,12 +22,15 @@ class ProductServiceTest {
     private ProductRepository productRepository;
     private ProductService productService;
     private MessageConfig messageConfig;
+    private KafkaProducerAdapter kafkaProducerAdapter;
+
 
     @BeforeEach
     void setUp() {
+        kafkaProducerAdapter = mock(KafkaProducerAdapter.class);
         productRepository = mock(ProductRepository.class);
         messageConfig = mock(MessageConfig.class);
-        productService = new ProductService(productRepository, messageConfig);
+        productService = new ProductService(productRepository, messageConfig,kafkaProducerAdapter);
     }
 
     @Test
