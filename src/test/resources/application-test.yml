@@ -9,8 +9,13 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true # Formatea las queries para mayor legibilidad
+        use_sql_comments: true # Agrega comentarios en las queries generadas
+
   h2:
     console:
       enabled: true

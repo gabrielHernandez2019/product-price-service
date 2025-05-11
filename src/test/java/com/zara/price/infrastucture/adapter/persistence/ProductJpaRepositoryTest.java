@@ -21,16 +21,22 @@ class ProductJpaRepositoryTest {
     @Autowired
     private ProductJpaRepository productJpaRepository;
 
+
+    @Test
+    void inspectDatabase() {
+        List<ProductEntity> allProducts = productJpaRepository.findAll();
+        allProducts.forEach(System.out::println);
+    }
     @Test
     void testFindByCriteriaWithAllParameters() {
         String applicationDate = "2020-06-14T10:00:00";
         Integer productId = 35455;
         Integer brandId = 1;
-
+        inspectDatabase();
         List<ProductEntity> result = productJpaRepository.findByCriteria(LocalDateTime.parse(applicationDate), productId, brandId);
 
         assertEquals(1, result.size());
-        assertEquals(35455, result.get(0).getId());
+        assertEquals(35455, result.get(0).getProductId());
     }
 
     @Test
@@ -52,7 +58,7 @@ class ProductJpaRepositoryTest {
 
         List<ProductEntity> result = productJpaRepository.findByCriteria(LocalDateTime.parse(applicationDate), productId, brandId);
 
-        assertEquals(0, result.size()); // Ajusta según los datos de prueba
+        assertEquals(1, result.size()); // Ajusta según los datos de prueba
     }
 
     @Test

@@ -10,8 +10,8 @@ import java.util.List;
 public interface ProductJpaRepository extends JpaRepository<ProductEntity, Long> {
 
     @Query("SELECT p FROM ProductEntity p WHERE " +
-            "(:applicationDate BETWEEN p.startDate AND p.endDate) AND " +
-            "(:productId IS NULL OR p.id = :productId) AND " +
+            "(:applicationDate IS NULL or :applicationDate BETWEEN p.startDate AND p.endDate) AND " +
+            "(:productId IS NULL OR p.productId = :productId) AND " +
             "(:brandId IS NULL OR p.brandId = :brandId)")
     List<ProductEntity> findByCriteria(@Param("applicationDate") LocalDateTime applicationDate,
                                        @Param("productId") Integer productId,

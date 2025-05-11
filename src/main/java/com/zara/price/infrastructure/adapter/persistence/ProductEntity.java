@@ -1,8 +1,10 @@
 package com.zara.price.infrastructure.adapter.persistence;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -10,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "PRICES")
+@ToString
 public class ProductEntity {
 
     @Id

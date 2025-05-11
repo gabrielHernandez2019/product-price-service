@@ -1,3 +1,5 @@
+
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.5'
@@ -65,4 +67,8 @@ jacocoTestReport {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+task runJMeter(type: Exec) {
+	commandLine 'jmeter', '-n', '-t', 'src/test/load/test-load.jmx', '-l', "${buildDir}/jmeter-results/resultados.jtl", '-j', "${buildDir}/jmeter-logs/log-jmeter.log"
 }
