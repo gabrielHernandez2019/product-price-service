@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 public class KafkaProducerAdapter {
     private static final String TOPIC = "price-event";
 
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
-    public void setKafkaTemplate(KafkaTemplate<String, String> kafkaTemplate) {
+    public KafkaProducerAdapter(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 

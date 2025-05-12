@@ -11,8 +11,8 @@ class KafkaProducerAdapterTest {
     @Test
     void testSendMessage() {
         KafkaTemplate<String, String> mockKafkaTemplate = mock(KafkaTemplate.class);
-        KafkaProducerAdapter kafkaProducerAdapter = new KafkaProducerAdapter();
-        kafkaProducerAdapter.setKafkaTemplate(mockKafkaTemplate);
+        KafkaProducerAdapter kafkaProducerAdapter = new KafkaProducerAdapter(mockKafkaTemplate);
+
 
         String testMessage = "Test message";
         kafkaProducerAdapter.sendMessage(testMessage);
