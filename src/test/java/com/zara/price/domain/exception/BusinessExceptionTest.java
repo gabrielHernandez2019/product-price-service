@@ -12,7 +12,7 @@ class BusinessExceptionTest {
     void testBusinessExceptionMessage() {
         String expectedMessage = "Error de negocio";
 
-        BusinessException exception = new BusinessException(expectedMessage);
+        BusinessException exception = new BusinessException(expectedMessage, "400");
         assertNotNull(exception, "La excepción no debe ser nula");
         assertEquals(expectedMessage, exception.getMessage(), "El mensaje de la excepción no coincide");
     }

@@ -1,8 +1,10 @@
 package com.zara.price.infrastructure.adapter.rest;
 
 import com.zara.price.application.service.ProductService;
+import com.zara.price.domain.exception.BusinessException;
 import com.zara.price.domain.model.Product;
 import com.zara.price.infrastructure.adapter.rest.exception.GlobalExceptionHandler;
+import com.zara.price.infrastructure.adapter.rest.exception.dto.ErrorDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -149,9 +151,9 @@ class ProductControllerTest {
 
         MissingServletRequestParameterException exception = new MissingServletRequestParameterException("param", "String");
 
-        ResponseEntity<String> response = controller.handleMissingParams(exception);
+        ResponseEntity<ErrorDto> response = controller.handleMissingParams(exception);
 
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Missing parameter: param", response.getBody());
+        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getBody().getErrorCode());
+        assertEquals("Missing parameter: param", response.getBody().getMessage());
     }
 }
