@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ActiveProfiles("test")
 @DataJpaTest
@@ -25,8 +26,9 @@ class ProductJpaRepositoryTest {
     @Test
     void inspectDatabase() {
         List<ProductEntity> allProducts = productJpaRepository.findAll();
-        allProducts.forEach(System.out::println);
+        allProducts.forEach(product -> assertNotNull(product.getProductId(), "El ID del producto no debe ser nulo"));
     }
+
     @Test
     void testFindByCriteriaWithAllParameters() {
         String applicationDate = "2020-06-14T10:00:00";

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
@@ -31,9 +30,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<Product> findByCriteria(LocalDateTime applicationDate, Integer productId, Integer brandId) {
-        return jpaRepository.findByCriteria( applicationDate, productId, brandId).stream()
-                .map(productMapper::toDomain)
-                .collect(Collectors.toList());
+        return jpaRepository.findByCriteria(applicationDate, productId, brandId).stream().map(productMapper::toDomain).toList();
     }
 
 

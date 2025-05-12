@@ -13,10 +13,43 @@ Este proyecto es un servicio desarrollado en **Java** utilizando **Spring Boot**
 
 ## Estructura del proyecto
 
-- `src/main/java`: Código fuente principal del servicio.
-- `src/test/java`: Pruebas unitarias y de integración.
-- `src/test/load`: Archivos de configuración de pruebas de carga con JMeter.
-- `build/`: Directorio de construcción generado por Gradle.
+**Capa de Dominio (Core)**
+Contiene la lógica de negocio pura y es completamente independiente de frameworks o 
+tecnologías externas.
+
+
+    - Ubicación: src/main/java/com/zara/price/domain
+
+    - Componentes:
+        Entidades: Representan los objetos principales del dominio.
+        Value Objects: Objetos inmutables que encapsulan valores.
+        Interfaces de puertos: Contratos para interactuar con la lógica de negocio.
+
+**Capa de Aplicación**
+Coordina los casos de uso y orquesta la lógica de negocio.
+
+    - Ubicación: src/main/java/com/zara/price/application
+
+    - Componentes:
+        Casos de uso: Implementan la lógica de los procesos del negocio.
+        Servicios de aplicación: Gestionan la interacción entre el dominio y las capas externas.
+
+**Capa de Infraestructura**
+Maneja la interacción con el mundo exterior, como APIs REST.
+
+    - Ubicación: src/main/java/com/zara/price/adapter/in
+    
+    - Componentes:
+        Controladores: Exponen los endpoints para interactuar con el sistema.
+
+**Capa de Salida (Adaptadores Secundarios)**
+Implementa la comunicación con sistemas externos.
+
+
+    - Ubicación: src/main/java/com/zara/price/adapter/out
+    - Componentes:
+        Kafka Producer: Envío de eventos a Kafka.
+        Repositorios: Implementaciones para interactuar con la base de datos.
 
 ## Configuración del entorno
 
