@@ -6,14 +6,14 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductJpaRepository extends JpaRepository<ProductEntity, Long> {
 
-    @Query("SELECT p FROM ProductEntity p WHERE " +
-            "(:applicationDate IS NULL or :applicationDate BETWEEN p.startDate AND p.endDate) AND " +
-            "(:productId IS NULL OR p.productId = :productId) AND " +
-            "(:brandId IS NULL OR p.brandId = :brandId)")
-    List<ProductEntity> findByCriteria(@Param("applicationDate") LocalDateTime applicationDate,
-                                       @Param("productId") Integer productId,
-                                       @Param("brandId") Integer brandId);
+    Optional<ProductEntity> findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(
+            LocalDateTime applicationDate,
+            LocalDateTime applicationDateEnd,
+            Integer productId,
+            Integer brandId
+    );
 }

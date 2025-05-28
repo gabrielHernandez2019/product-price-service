@@ -10,6 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -35,10 +36,10 @@ class ProductJpaRepositoryTest {
         Integer productId = 35455;
         Integer brandId = 1;
         inspectDatabase();
-        List<ProductEntity> result = productJpaRepository.findByCriteria(LocalDateTime.parse(applicationDate), productId, brandId);
+        Optional<ProductEntity> result = productJpaRepository.findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(LocalDateTime.parse(applicationDate), LocalDateTime.parse(applicationDate),productId, brandId);
 
-        assertEquals(1, result.size());
-        assertEquals(35455, result.get(0).getProductId());
+        assertEquals(false, result.isEmpty());
+        assertEquals(35455, result.get().getProductId());
     }
 
     @Test
@@ -47,9 +48,9 @@ class ProductJpaRepositoryTest {
         Integer productId = null;
         Integer brandId = 1;
 
-        List<ProductEntity> result = productJpaRepository.findByCriteria(LocalDateTime.parse(applicationDate), productId, brandId);
+        Optional<ProductEntity> result = productJpaRepository.findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(LocalDateTime.parse(applicationDate),LocalDateTime.parse(applicationDate), productId, brandId);
 
-        assertEquals(1, result.size()); // Ajusta según los datos de prueba
+        assertEquals(1, result.stream().count()); // Ajusta según los datos de prueba
     }
 
     @Test
@@ -58,9 +59,9 @@ class ProductJpaRepositoryTest {
         Integer productId = 35455;
         Integer brandId = null;
 
-        List<ProductEntity> result = productJpaRepository.findByCriteria(LocalDateTime.parse(applicationDate), productId, brandId);
+        Optional<ProductEntity> result = productJpaRepository.findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(LocalDateTime.parse(applicationDate), LocalDateTime.parse(applicationDate),productId, brandId);
 
-        assertEquals(1, result.size()); // Ajusta según los datos de prueba
+        assertEquals(true, result.isEmpty()); // Ajusta según los datos de prueba
     }
 
     @Test
@@ -69,8 +70,8 @@ class ProductJpaRepositoryTest {
         Integer productId = null;
         Integer brandId = null;
 
-        List<ProductEntity> result = productJpaRepository.findByCriteria(LocalDateTime.parse(applicationDate), productId, brandId);
+        Optional<ProductEntity> result = productJpaRepository.findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(LocalDateTime.parse(applicationDate),LocalDateTime.parse(applicationDate), productId, brandId);
 
-        assertEquals(1, result.size()); // Ajusta según los datos de prueba
+        assertEquals(true, result.isEmpty()); // Ajusta según los datos de prueba
     }
 }

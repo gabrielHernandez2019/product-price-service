@@ -1,12 +1,12 @@
 package com.zara.price.infrastructure.adapter.persistence;
 
+
 import com.zara.price.domain.model.Product;
 import com.zara.price.domain.port.out.ProductRepository;
 import com.zara.price.infrastructure.adapter.persistence.mapper.ProductMapper;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
@@ -29,8 +29,11 @@ public class ProductRepositoryImpl implements ProductRepository {
      */
 
     @Override
-    public List<Product> findByCriteria(LocalDateTime applicationDate, Integer productId, Integer brandId) {
-        return jpaRepository.findByCriteria(applicationDate, productId, brandId).stream().map(productMapper::toDomain).toList();
+    public Product findByCriteria(LocalDateTime applicationDate, Integer productId, Integer brandId) {
+        return jpaRepository.findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(applicationDate,applicationDate, productId, brandId)
+                .stream()
+                .map(productMapper::toDomain)
+                .findFirst().orElse(null);
     }
 
 

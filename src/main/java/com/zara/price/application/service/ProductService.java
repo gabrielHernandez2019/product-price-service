@@ -5,11 +5,9 @@ import com.zara.price.domain.model.Product;
 import com.zara.price.domain.port.out.ProductRepository;
 import com.zara.price.infrastructure.adapter.kafka.KafkaProducerAdapter;
 import com.zara.price.infrastructure.config.MessageConfig;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -26,10 +24,10 @@ public class ProductService {
     }
 
 
-    public List<Product> findProductsByCriteria(LocalDateTime applicationDate, Integer productId, Integer brandId) {
+    public Product findProductsByCriteria(LocalDateTime applicationDate, Integer productId, Integer brandId) {
 
         if (Objects.isNull(applicationDate)) {
-            throw new BusinessException(messageConfig.getErrorMessage("null-application-date"), HttpStatus.BAD_REQUEST.toString());
+            throw new BusinessException(messageConfig.getErrorMessage("null-application-date"),"400");
         }
         kafkaProducerAdapter.sendMessage("productId: " + productId + ", brandId: " + brandId + ", applicationDate: " + applicationDate);
         return repository.findByCriteria(applicationDate, productId, brandId);

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/prices")
 public class ProductController {
 
     private final ProductService service;
@@ -27,10 +27,10 @@ public class ProductController {
      * @return a list of products matching the criteria
      */
     @GetMapping
-    public List<Product> getPriceForProduct(
-            @RequestParam("applicationDate") LocalDateTime applicationDate,
-            @RequestParam("productId") Integer productId,
-            @RequestParam("brandId") Integer brandId) {
+    public Product getPriceForProduct(
+            @RequestParam(value = "applicationDate", required = true) LocalDateTime applicationDate,
+            @RequestParam(value = "productId", required = true) Integer productId,
+            @RequestParam(value = "brandId", required = true) Integer brandId) {
         return service.findProductsByCriteria(applicationDate, productId, brandId);
     }
 }

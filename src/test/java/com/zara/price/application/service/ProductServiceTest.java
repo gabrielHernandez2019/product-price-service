@@ -55,12 +55,11 @@ class ProductServiceTest {
         Integer brandId = 1;
 
         Product expectedProduct = new Product(1, 1, LocalDateTime.parse("2023-06-14T00:00:00"), LocalDateTime.parse("2023-06-14T23:59:59"), BigDecimal.valueOf(35.50));
-        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(List.of(expectedProduct));
+        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(expectedProduct);
 
-        List<Product> result = productService.findProductsByCriteria(applicationDate, productId, brandId);
+        Product result = productService.findProductsByCriteria(applicationDate, productId, brandId);
 
-        assertEquals(1, result.size());
-        assertEquals(expectedProduct, result.get(0));
+        assertEquals(expectedProduct, result);
     }
 
     @Test
@@ -70,12 +69,11 @@ class ProductServiceTest {
         Integer brandId = 1;
 
         Product expectedProduct = new Product(2, 1, LocalDateTime.parse("2023-06-14T15:00:00"), LocalDateTime.parse("2023-06-14T18:00:00"), BigDecimal.valueOf(20.50));
-        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(List.of(expectedProduct));
+        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(expectedProduct);
 
-        List<Product> result = productService.findProductsByCriteria(applicationDate, productId, brandId);
+        Product result = productService.findProductsByCriteria(applicationDate, productId, brandId);
 
-        assertEquals(1, result.size());
-        assertEquals(expectedProduct, result.get(0));
+        assertEquals(expectedProduct, result);
     }
 
     @Test
@@ -85,7 +83,7 @@ class ProductServiceTest {
         Integer brandId = 1;
 
         Product expectedProduct = new Product(3, 1, LocalDateTime.parse("2023-06-14T20:00:00"), LocalDateTime.parse("2023-06-14T23:59:59"), BigDecimal.valueOf(30.50));
-        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(List.of(expectedProduct));
+        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(expectedProduct);
 
         List<Product> result = productService.findProductsByCriteria(applicationDate, productId, brandId);
 

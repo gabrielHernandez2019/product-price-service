@@ -6,5 +6,5 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ProductRepository {
-    List<Product> findByCriteria(LocalDateTime applicationDate, Integer productId, Integer brandId);
+    Product findByCriteria(LocalDateTime applicationDate, Integer productId, Integer brandId);
 }

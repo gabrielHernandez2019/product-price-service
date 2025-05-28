@@ -1,7 +1,6 @@
 package com.zara.price.infrastructure.adapter.rest;
 
 import com.zara.price.application.service.ProductService;
-import com.zara.price.domain.exception.BusinessException;
 import com.zara.price.domain.model.Product;
 import com.zara.price.infrastructure.adapter.rest.exception.GlobalExceptionHandler;
 import com.zara.price.infrastructure.adapter.rest.exception.dto.ErrorDto;
@@ -10,9 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -28,10 +27,10 @@ class ProductControllerTest {
         Integer productId = 35455;
         Integer brandId = 1;
 
-        List<Product> mockProducts = Collections.singletonList(new Product());
+        Product mockProducts = new Product(1,brandId, applicationDate, LocalDateTime.of(2023, 6, 14, 23, 59), BigDecimal.valueOf(35.50));
         when(mockService.findProductsByCriteria(applicationDate, productId, brandId)).thenReturn(mockProducts);
 
-        List<Product> result = controller.getPriceForProduct(applicationDate, productId, brandId);
+        Product result = controller.getPriceForProduct(applicationDate, productId, brandId);
 
         assertEquals(mockProducts, result);
         verify(mockService).findProductsByCriteria(applicationDate, productId, brandId);
@@ -46,10 +45,10 @@ class ProductControllerTest {
         Integer productId = 35455;
         Integer brandId = 1;
 
-        List<Product> mockProducts = Collections.singletonList(new Product());
+        Product mockProducts = new Product( 1, brandId, applicationDate, LocalDateTime.of(2023, 6, 14, 23, 59), BigDecimal.valueOf(38.95));
         when(mockService.findProductsByCriteria(applicationDate, productId, brandId)).thenReturn(mockProducts);
 
-        List<Product> result = controller.getPriceForProduct(applicationDate, productId, brandId);
+        Product result = controller.getPriceForProduct(applicationDate, productId, brandId);
 
         assertEquals(mockProducts, result);
         verify(mockService).findProductsByCriteria(applicationDate, productId, brandId);
@@ -64,10 +63,10 @@ class ProductControllerTest {
         Integer productId = 35455;
         Integer brandId = 1;
 
-        List<Product> mockProducts = Collections.singletonList(new Product());
+        Product mockProducts = new Product();
         when(mockService.findProductsByCriteria(applicationDate, productId, brandId)).thenReturn(mockProducts);
 
-        List<Product> result = controller.getPriceForProduct(applicationDate, productId, brandId);
+        Product result = controller.getPriceForProduct(applicationDate, productId, brandId);
 
         assertEquals(mockProducts, result);
         verify(mockService).findProductsByCriteria(applicationDate, productId, brandId);
@@ -82,10 +81,10 @@ class ProductControllerTest {
         Integer productId = 35455;
         Integer brandId = 1;
 
-        List<Product> mockProducts = Collections.singletonList(new Product());
+        Product mockProducts = new Product();
         when(mockService.findProductsByCriteria(applicationDate, productId, brandId)).thenReturn(mockProducts);
 
-        List<Product> result = controller.getPriceForProduct(applicationDate, productId, brandId);
+        Product result = controller.getPriceForProduct(applicationDate, productId, brandId);
 
         assertEquals(mockProducts, result);
         verify(mockService).findProductsByCriteria(applicationDate, productId, brandId);
@@ -100,10 +99,10 @@ class ProductControllerTest {
         Integer productId = 35455;
         Integer brandId = 1;
 
-        List<Product> mockProducts = Collections.singletonList(new Product());
+        Product mockProducts = new Product();
         when(mockService.findProductsByCriteria(applicationDate, productId, brandId)).thenReturn(mockProducts);
 
-        List<Product> result = controller.getPriceForProduct(applicationDate, productId, brandId);
+        Product result = controller.getPriceForProduct(applicationDate, productId, brandId);
 
         assertEquals(mockProducts, result);
         verify(mockService).findProductsByCriteria(applicationDate, productId, brandId);
@@ -118,10 +117,10 @@ class ProductControllerTest {
         Integer productId = 1;
         Integer brandId = 1;
 
-        List<Product> mockProducts = Collections.singletonList(new Product());
+        Product mockProducts = new Product();
         when(mockService.findProductsByCriteria(applicationDate, productId, brandId)).thenReturn(mockProducts);
 
-        List<Product> result = controller.getPriceForProduct(applicationDate, productId, brandId);
+        Product result = controller.getPriceForProduct(applicationDate, productId, brandId);
 
         assertEquals(mockProducts, result);
         verify(mockService).findProductsByCriteria(applicationDate, productId, brandId);
@@ -136,11 +135,11 @@ class ProductControllerTest {
         Integer productId = 1;
         Integer brandId = 1;
 
-        when(mockService.findProductsByCriteria(applicationDate, productId, brandId)).thenReturn(Collections.emptyList());
+        when(mockService.findProductsByCriteria(applicationDate, productId, brandId)).thenReturn(null);
 
-        List<Product> result = controller.getPriceForProduct(applicationDate, productId, brandId);
+        Product result = controller.getPriceForProduct(applicationDate, productId, brandId);
 
-        assertEquals(0, result.size());
+        assertEquals(null,result );
         verify(mockService).findProductsByCriteria(applicationDate, productId, brandId);
     }
 
