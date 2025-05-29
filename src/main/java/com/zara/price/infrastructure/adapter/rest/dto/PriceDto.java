@@ -2,12 +2,15 @@ package com.zara.price.infrastructure.adapter.rest.dto;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
+@NoArgsConstructor
 @Getter
+@Setter
 public class PriceDto {
 
         private Integer productId;

@@ -1,4 +1,4 @@
-package com.zara.price.infrastucture.adapter.persistence;
+package com.zara.price.infrastructure.adapter.persistence;
 
 import com.zara.price.infrastructure.adapter.persistence.ProductEntity;
 import com.zara.price.infrastructure.adapter.persistence.ProductJpaRepository;
