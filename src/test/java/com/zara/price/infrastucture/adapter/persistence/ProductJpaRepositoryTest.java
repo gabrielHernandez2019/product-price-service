@@ -12,8 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @DataJpaTest
@@ -48,9 +47,15 @@ class ProductJpaRepositoryTest {
         Integer productId = null;
         Integer brandId = 1;
 
-        Optional<ProductEntity> result = productJpaRepository.findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(LocalDateTime.parse(applicationDate),LocalDateTime.parse(applicationDate), productId, brandId);
+        Optional<ProductEntity> result = productJpaRepository
+                .findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(
+                        LocalDateTime.parse(applicationDate),
+                        LocalDateTime.parse(applicationDate),
+                        productId,
+                        brandId
+                );
 
-        assertEquals(1, result.stream().count()); // Ajusta según los datos de prueba
+        assertTrue(result.isEmpty(), "No debe encontrarse producto si el productId es nulo");
     }
 
     @Test

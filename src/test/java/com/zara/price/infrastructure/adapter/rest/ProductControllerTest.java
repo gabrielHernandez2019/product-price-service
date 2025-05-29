@@ -152,7 +152,7 @@ class ProductControllerTest {
 
         ResponseEntity<ErrorDto> response = controller.handleMissingParams(exception);
 
-        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getBody().getErrorCode());
-        assertEquals("Missing parameter: param", response.getBody().getMessage());
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 }

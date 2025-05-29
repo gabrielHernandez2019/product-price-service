@@ -85,10 +85,10 @@ class ProductServiceTest {
         Product expectedProduct = new Product(3, 1, LocalDateTime.parse("2023-06-14T20:00:00"), LocalDateTime.parse("2023-06-14T23:59:59"), BigDecimal.valueOf(30.50));
         when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(expectedProduct);
 
-        List<Product> result = productService.findProductsByCriteria(applicationDate, productId, brandId);
+        Product result = productService.findProductsByCriteria(applicationDate, productId, brandId);
 
-        assertEquals(1, result.size());
-        assertEquals(expectedProduct, result.get(0));
+
+        assertEquals(expectedProduct, result);
     }
 
     @Test
@@ -98,12 +98,12 @@ class ProductServiceTest {
         Integer brandId = 1;
 
         Product expectedProduct = new Product(4, 1, LocalDateTime.parse("2023-06-15T00:00:00"), LocalDateTime.parse("2023-06-15T23:59:59"), BigDecimal.valueOf(30.50));
-        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(List.of(expectedProduct));
+        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(expectedProduct);
 
-        List<Product> result = productService.findProductsByCriteria(applicationDate, productId, brandId);
+        Product result = productService.findProductsByCriteria(applicationDate, productId, brandId);
 
-        assertEquals(1, result.size());
-        assertEquals(expectedProduct, result.get(0));
+
+        assertEquals(expectedProduct, result);
     }
 
     @Test
@@ -113,11 +113,10 @@ class ProductServiceTest {
         Integer brandId = 1;
 
         Product expectedProduct = new Product(5, 1, LocalDateTime.parse("2023-06-16T20:00:00"), LocalDateTime.parse("2023-06-16T23:59:59"), BigDecimal.valueOf(30.50));
-        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(List.of(expectedProduct));
+        when(productRepository.findByCriteria(applicationDate, productId, brandId)).thenReturn(expectedProduct);
 
-        List<Product> result = productService.findProductsByCriteria(applicationDate, productId, brandId);
+        Product result = productService.findProductsByCriteria(applicationDate, productId, brandId);
 
-        assertEquals(1, result.size());
-        assertEquals(expectedProduct, result.get(0));
+        assertEquals(expectedProduct, result);
     }
 }
