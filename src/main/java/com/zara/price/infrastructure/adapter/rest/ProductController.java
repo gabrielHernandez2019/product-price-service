@@ -2,6 +2,8 @@ package com.zara.price.infrastructure.adapter.rest;
 
 import com.zara.price.application.service.ProductService;
 import com.zara.price.domain.model.Product;
+import com.zara.price.infrastructure.adapter.rest.dto.PriceDto;
+import com.zara.price.infrastructure.adapter.rest.mapper.ProductDtoMapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -27,10 +29,14 @@ public class ProductController {
      * @return a list of products matching the criteria
      */
     @GetMapping
-    public Product getPriceForProduct(
+    public PriceDto.ProductPriceDto getPriceForProduct(
             @RequestParam(value = "applicationDate", required = true) LocalDateTime applicationDate,
             @RequestParam(value = "productId", required = true) Integer productId,
             @RequestParam(value = "brandId", required = true) Integer brandId) {
-        return service.findProductsByCriteria(applicationDate, productId, brandId);
+        
+        Product product =  service.findProductsByCriteria(applicationDate, productId, brandId);
+
+        return ProductDtoMapper.toDto(product);
+
     }
 }

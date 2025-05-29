@@ -2,6 +2,7 @@ package com.zara.price.infrastructure.adapter.persistence.mapper;
 
 import com.zara.price.domain.model.Product;
 import com.zara.price.infrastructure.adapter.persistence.ProductEntity;
+import com.zara.price.infrastructure.adapter.rest.dto.PriceDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,4 +16,6 @@ public class ProductMapper {
         product.setPrice(entity.getPrice());
         return product;
     }
+
+
 }
