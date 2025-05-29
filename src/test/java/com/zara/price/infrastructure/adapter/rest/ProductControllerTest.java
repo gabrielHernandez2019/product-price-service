@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 class ProductControllerTest {
@@ -55,8 +56,6 @@ class ProductControllerTest {
         verify(mockService).findProductsByCriteria(applicationDate, productId, brandId);
     }
 
-
-
     @Test
     void testGetPriceForProductWithEmptyResult() {
         ProductService mockService = mock(ProductService.class);
@@ -70,7 +69,7 @@ class ProductControllerTest {
 
         Product result = controller.getPriceForProduct(applicationDate, productId, brandId);
 
-        assertEquals(null,result );
+        assertNull(result);
         verify(mockService).findProductsByCriteria(applicationDate, productId, brandId);
     }
 
