@@ -29,6 +29,82 @@ class ProductJpaRepositoryTest {
         allProducts.forEach(product -> assertNotNull(product.getProductId(), "El ID del producto no debe ser nulo"));
     }
 
+
+    @Test
+    void testRequestAt10AMOn14th() {
+        LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 14, 10, 0);
+        Integer productId = 35455;
+        Integer brandId = 1;
+
+        Optional<ProductEntity> result = productJpaRepository
+                .findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(
+                        applicationDate, applicationDate, productId, brandId);
+
+        assertTrue(result.isPresent(), "Debe encontrarse un producto para la petición de las 10:00 del 14/06");
+        assertEquals(productId, result.get().getProductId());
+        assertEquals(brandId, result.get().getBrandId());
+    }
+
+    @Test
+    void testRequestAt4PMOn14th() {
+        LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 14, 16, 0);
+        Integer productId = 35455;
+        Integer brandId = 1;
+
+        Optional<ProductEntity> result = productJpaRepository
+                .findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(
+                        applicationDate, applicationDate, productId, brandId);
+
+        assertTrue(result.isPresent(), "Debe encontrarse un producto para la petición de las 16:00 del 14/06");
+        assertEquals(productId, result.get().getProductId());
+        assertEquals(brandId, result.get().getBrandId());
+    }
+
+    @Test
+    void testRequestAt9PMOn14th() {
+        LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 14, 21, 0);
+        Integer productId = 35455;
+        Integer brandId = 1;
+
+        Optional<ProductEntity> result = productJpaRepository
+                .findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(
+                        applicationDate, applicationDate, productId, brandId);
+
+        assertTrue(result.isPresent(), "Debe encontrarse un producto para la petición de las 21:00 del 14/06");
+        assertEquals(productId, result.get().getProductId());
+        assertEquals(brandId, result.get().getBrandId());
+    }
+
+    @Test
+    void testRequestAt10AMOn15th() {
+        LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 15, 10, 0);
+        Integer productId = 35455;
+        Integer brandId = 1;
+
+        Optional<ProductEntity> result = productJpaRepository
+                .findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(
+                        applicationDate, applicationDate, productId, brandId);
+
+        assertTrue(result.isPresent(), "Debe encontrarse un producto para la petición de las 10:00 del 15/06");
+        assertEquals(productId, result.get().getProductId());
+        assertEquals(brandId, result.get().getBrandId());
+    }
+
+    @Test
+    void testRequestAt9PMOn16th() {
+        LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 16, 21, 0);
+        Integer productId = 35455;
+        Integer brandId = 1;
+
+        Optional<ProductEntity> result = productJpaRepository
+                .findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(
+                        applicationDate, applicationDate, productId, brandId);
+
+        assertTrue(result.isPresent(), "Debe encontrarse un producto para la petición de las 21:00 del 16/06");
+        assertEquals(productId, result.get().getProductId());
+        assertEquals(brandId, result.get().getBrandId());
+    }
+
     @Test
     void testFindByCriteriaWithAllParameters() {
         String applicationDate = "2020-06-14T10:00:00";
