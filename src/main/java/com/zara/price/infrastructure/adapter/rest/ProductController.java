@@ -29,11 +29,11 @@ public class ProductController {
      * @return a list of products matching the criteria
      */
     @GetMapping
-    public PriceDto.ProductPriceDto getPriceForProduct(
+    public PriceDto getPriceForProduct(
             @RequestParam(value = "applicationDate", required = true) LocalDateTime applicationDate,
             @RequestParam(value = "productId", required = true) Integer productId,
             @RequestParam(value = "brandId", required = true) Integer brandId) {
-        
+
         Product product =  service.findProductsByCriteria(applicationDate, productId, brandId);
 
         return ProductDtoMapper.toDto(product);

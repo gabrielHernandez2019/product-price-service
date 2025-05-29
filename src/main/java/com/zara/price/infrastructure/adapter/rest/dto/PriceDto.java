@@ -23,7 +23,6 @@ public class PriceDto {
             this.endDate = endDate;
             this.price = price;
         }
-    }
-
-
 }
+
+
