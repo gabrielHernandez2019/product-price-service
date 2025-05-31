@@ -27,7 +27,7 @@ public class ProductService {
     public Product findProductsByCriteria(LocalDateTime applicationDate, Integer productId, Integer brandId) {
 
         if (Objects.isNull(applicationDate)) {
-            throw new BusinessException(messageConfig.getErrorMessage("null-application-date"),"400");
+            throw new BusinessException(messageConfig.getErrorMessage("null-application-date"));
         }
         kafkaProducerAdapter.sendMessage("productId: " + productId + ", brandId: " + brandId + ", applicationDate: " + applicationDate);
         return repository.findByCriteria(applicationDate, productId, brandId);

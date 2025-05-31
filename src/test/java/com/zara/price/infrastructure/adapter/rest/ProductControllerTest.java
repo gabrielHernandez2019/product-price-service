@@ -307,7 +307,7 @@ class ProductControllerTest {
         void shouldHandleBusinessExceptionWithBadRequestStatus() {
 
             String errorMessage = "Invalid product criteria provided";
-            BusinessException businessException = new BusinessException(errorMessage, "400");
+            BusinessException businessException = new BusinessException(errorMessage);
 
 
             ResponseEntity<ErrorDto> response = exceptionHandler.handleBusinessException(businessException);
