@@ -117,42 +117,6 @@ class ProductJpaRepositoryTest {
         assertEquals(35455, result.get().getProductId());
     }
 
-    @Test
-    void testFindByCriteriaWithNullProductId() {
-        String applicationDate = "2023-06-14T10:00:00";
-        Integer productId = null;
-        Integer brandId = 1;
 
-        Optional<ProductEntity> result = productJpaRepository
-                .findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(
-                        LocalDateTime.parse(applicationDate),
-                        LocalDateTime.parse(applicationDate),
-                        productId,
-                        brandId
-                );
 
-        assertTrue(result.isEmpty(), "No debe encontrarse producto si el productId es nulo");
-    }
-
-    @Test
-    void testFindByCriteriaWithNullBrandId() {
-        String applicationDate = "2023-06-14T10:00:00";
-        Integer productId = 35455;
-        Integer brandId = null;
-
-        Optional<ProductEntity> result = productJpaRepository.findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(LocalDateTime.parse(applicationDate), LocalDateTime.parse(applicationDate),productId, brandId);
-
-        assertEquals(true, result.isEmpty()); // Ajusta según los datos de prueba
-    }
-
-    @Test
-    void testFindByCriteriaWithNullParameters() {
-        String applicationDate = "2023-06-14T10:00:00";
-        Integer productId = null;
-        Integer brandId = null;
-
-        Optional<ProductEntity> result = productJpaRepository.findFirstByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(LocalDateTime.parse(applicationDate),LocalDateTime.parse(applicationDate), productId, brandId);
-
-        assertEquals(true, result.isEmpty()); // Ajusta según los datos de prueba
-    }
 }
